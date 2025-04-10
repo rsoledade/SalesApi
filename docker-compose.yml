@@ -1,0 +1,48 @@
+version: '3.4'
+
+services:
+  salesapi:
+    build:
+      context: .
+      dockerfile: SalesApi.Api/Dockerfile
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - db
+    networks:
+      - evaluation-network
+
+  gateway:
+    image: ${DOCKER_REGISTRY-}gateway
+    build:
+      context: .
+      dockerfile: Gateway/Dockerfile
+    ports:
+      - "8090:80"
+    networks:
+      - evaluation-network
+    depends_on:
+      - salesapi
+
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_DB: SalesApiDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - evaluation-network
+
+networks:
+  evaluation-network:
+    driver: bridge
+
+volumes:
+  pgdata:

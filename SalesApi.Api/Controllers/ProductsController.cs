@@ -19,14 +19,14 @@ namespace SalesApi.Controllers
         public async Task<IActionResult> GetAll()
         {
             var products = await _productService.GetAllProductsAsync();
-            return Ok(new { dados = products, status = "sucesso", message = "Operação concluída com sucesso" });
+            return Ok(new { dados = products, status = "success", message = "Operation completed successfully" });
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ProductDto dto)
         {
             var product = await _productService.CreateProductAsync(dto);
-            return Ok(new { dados = product, status = "sucesso", message = "Produto criado com sucesso" });
+            return Ok(new { dados = product, status = "success", message = "Product created successfully" });
         }
     }
 }
