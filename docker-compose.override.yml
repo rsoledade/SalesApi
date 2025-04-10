@@ -1,0 +1,7 @@
+services:  
+  gateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8090
+    ports:
+      - "8090"
