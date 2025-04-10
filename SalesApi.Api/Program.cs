@@ -7,27 +7,27 @@ using SalesApi.Application.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+// Adicionar serviços ao container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
-// PostgreSQL connection
+// Conexão com o PostgreSQL
 builder.Services.AddDbContext<SalesDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Application services and event publisher
+// Serviços de aplicação
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ISaleService, SaleService>();
 builder.Services.AddInfrastructure();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configuração do pipeline de requisições
 if (app.Environment.IsDevelopment())
 {
-   
+    // Opções de configuração para desenvolvimento, se necessário
 }
 
 app.UseSwagger();
